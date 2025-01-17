@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasetask2/Widgets/my_button.dart';
 import 'package:firebasetask2/Widgets/my_text_field.dart';
 import 'package:firebasetask2/Widgets/square_tile.dart';
+import 'package:firebasetask2/services/auth_services.dart';
 import 'package:flutter/material.dart';
 
 class LogInPage extends StatefulWidget {
@@ -16,6 +17,13 @@ class _LogInPageState extends State<LogInPage> {
   //text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
   //sign in method
   void userSignIn() async {
@@ -207,9 +215,11 @@ class _LogInPageState extends State<LogInPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SquareTile(imagePath: 'lib/Images/google.png'),
+                    SquareTile(
+                        onTap: () => AuthServices().signInWithGoogle(),
+                        imagePath: 'lib/Images/google.png'),
                     SizedBox(width: 10),
-                    SquareTile(imagePath: 'lib/Images/apple.png'),
+                    SquareTile(onTap: () {}, imagePath: 'lib/Images/apple.png'),
                   ],
                 ),
                 const SizedBox(height: 20),

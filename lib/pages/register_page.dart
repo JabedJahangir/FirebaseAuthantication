@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasetask2/Widgets/my_button.dart';
 import 'package:firebasetask2/Widgets/my_text_field.dart';
 import 'package:firebasetask2/Widgets/square_tile.dart';
+import 'package:firebasetask2/services/auth_services.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -17,6 +18,15 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  
+  @override
+  void dispose() {
+    
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   //sign in method
   void userSignUp() async {
@@ -205,9 +215,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SquareTile(imagePath: 'lib/Images/google.png'),
+                    SquareTile(
+                        onTap: () => AuthServices().signInWithGoogle(),
+                        imagePath: 'lib/Images/google.png'),
                     SizedBox(width: 10),
-                    SquareTile(imagePath: 'lib/Images/apple.png'),
+                    SquareTile(onTap: () {}, imagePath: 'lib/Images/apple.png'),
                   ],
                 ),
                 const SizedBox(height: 20),
